@@ -1,0 +1,3 @@
+vktoken = "vk1.a.c8CmqxyrMmQl2-dcfQriyNvvb3HPvcpJcIRZU_q0x4-izHpQiLUoMtnFmVhqSGjqgaSXtSWyJhoM9dWJ3eWnQqoy7d3bkxXglPjS0IoGoCtNxb4RkiHs6FuN6izuEAoYtrx3-8YXvCICh0b_GiFdvkkcqxEe7oipHwPp2pwq546_3vjE5wBT_GXdAvW17mHZFKh94JLEFrBQVW1BMjHCsA"
+yatoken = 'y0_AgAAAABREs0PAADLWwAAAADSudAu7m7ISFPGRMWPtc58QbzNqcUisII'
+id_vk = "297358641"

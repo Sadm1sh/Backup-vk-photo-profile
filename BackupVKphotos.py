@@ -1,8 +1,7 @@
 import requests
 import time
 import json
-from VK_TOKEN import vktoken, id_vk
-from Yandex_TOKEN import yatoken
+from user_info import vktoken, yatoken, id_vk
 from tqdm import tqdm
 VK_TOKEN: str = vktoken
 YANDEX_TOKEN: str = yatoken
@@ -110,7 +109,7 @@ class YAuploader:
 
 
 if __name__ == '__main__':
-    json_name = input('Введите название папки на диске:') # Вводим название папки
+    json_name = input('Введите название папки на диске:')  # Вводим название папки
     VKreq = VKRequest(VK_TOKEN)  # передаём вк токен классу
     with open(json_name + ".json", "w") as file:  # Создаём JSON файл с именем папки
         json.dump(VKreq.json_info_photos(), file, indent=4)  # Запаковываем JSON информацию в JSON файл
