@@ -1,6 +1,7 @@
 import requests
 import time
 import json
+import sys
 from user_info import vktoken, yatoken, id_vk
 from tqdm import tqdm
 VK_TOKEN: str = vktoken
@@ -45,9 +46,11 @@ class VKRequest:
             "count": self.count,
             "v": self.vers
         }
-        get_info_photos = requests.get(method_photos_get, params=params).json()
-        response = get_info_photos.get('response')
-        return response
+        get_info_photos = requests.get(method_photos_get, params=params)
+        if get_info_photos.status_code == 200:
+            info_json = get_info_photos.json()
+            return info_json.get('response')
+        sys.exit(f"Ошибка ответа, код: {get_info_photos.status_code}")
 
     def json_info_photos(self):  # Метод возвращает словарь по информации о загруженных фотографиях
         photos_items = self.info_photos().get('items')
@@ -89,9 +92,20 @@ class YAuploader:
         }
         create_folder = requests.put(self.url, headers=self.headers, params=params)
         if create_folder.status_code == 409:
-            return f'По указанному пути /{self.folder_path} ' \
-                   f'уже существует папка с таким именем фотографии будут загружены туда'
+            return f'По указанному пути /{self.folder_path} уже существует папка ' \
+                   f'с таким именем файлы будут загруженны туда'
+        elif create_folder.status_code != 201 != 409:
+            sys.exit(f"Ошибка ответа, код: {create_folder.status_code}")
         return f'По указанному пути /{self.folder_path} успешно создана папка'
+
+    def delete_folder(self):
+        params = {
+            "path": self.folder_path
+        }
+        delete_folder = requests.delete(self.url, headers=self.headers, params=params)
+        if delete_folder.status_code < 300:
+            return
+        sys.exit(f'Ошибка ответа, код: {delete_folder.status_code}')
 
     def upload_files(self, info_list):  # Метода загружает файлы по url
         print(self.create_folder())
@@ -104,8 +118,12 @@ class YAuploader:
                 "path": f"{self.folder_path}/{name}",
                 "url": url_photo
             }
-            requests.post(url_upload, headers=self.headers, params=params)
-        return "Все файлы успешно загрузились\n"
+            upload_photo = requests.post(url_upload, headers=self.headers, params=params)
+            if upload_photo.status_code != 202:
+                self.delete_folder()
+                sys.exit(f"Ошибка ответа, код: {upload_photo.status_code}\n"
+                         f"Папка перемещена в корзину")
+        return "Все файлы успешно загрузились в папку"
 
 
 if __name__ == '__main__':
