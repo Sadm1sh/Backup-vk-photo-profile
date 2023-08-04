@@ -1,5 +1,5 @@
 <p align="center">
-      <img src="Project Logo Url" width="726">
+      <img src="https://ibb.co/yXttMMW" width="726">
 </p>
 # Backup-vk-photo-profile
 ## Задание к итоговой работе:
