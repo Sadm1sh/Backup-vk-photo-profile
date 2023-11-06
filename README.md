@@ -1,6 +1,7 @@
 <p align="center">
       <img src="https://i.ibb.co/CzggXXh/1.png" width="726">
 </p>
+
 # Backup-vk-photo-profile
 ## Задача:
 ### Нужно написать программу, которая будет:
